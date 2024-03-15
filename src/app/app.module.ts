@@ -3,7 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
-import { EventComponent } from './event/event.component';
 import { EventListComponent } from './event/event-list/event-list.component';
 import { EventCreateComponent } from './event/event-create/event-create.component';
 import { EventDetailsComponent } from './event/event-details/event-details.component';
@@ -13,12 +12,22 @@ import { ConnectLoginComponent } from './connect/connect-login/connect-login.com
 import { ConnectRegisterComponent } from './connect/connect-register/connect-register.component';
 import { TchatComponent } from './tchat/tchat.component';
 import { UserComponent } from './user/user.component';
+import { Routes, RouterModule, mapToCanActivate } from '@angular/router';
+import { HttpClientModule} from '@angular/common/http';
+import { AuthGuardService } from './auth-guard.service';
+
+
+export const routes: Routes = [
+  { path: 'event', component: EventListComponent, canActivate: mapToCanActivate([AuthGuardService])},
+  { path: 'login', component: ConnectLoginComponent},
+  { path: '', redirectTo: 'event', pathMatch: 'full'},
+  { path: '**', redirectTo: 'event', pathMatch: 'full'}
+  ];
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    EventComponent,
     EventListComponent,
     EventCreateComponent,
     EventDetailsComponent,
@@ -30,7 +39,9 @@ import { UserComponent } from './user/user.component';
     UserComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    HttpClientModule,
+    RouterModule.forRoot(routes)
   ],
   providers: [],
   bootstrap: [AppComponent]
