@@ -43,7 +43,6 @@ export class AuthService {
   }
 
   isLoggedIn(): boolean {
-    if(localStorage.getItem('isAuthenticated') === 'true') console.log(" Tu est loggged in hein");
     return localStorage.getItem('isAuthenticated') === 'true';
   }
   
