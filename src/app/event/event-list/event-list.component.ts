@@ -25,10 +25,6 @@ export class EventListComponent implements OnInit {
     });
   }
 
-  logout() {
-    this.authService.logout();
-  }
-
   navigateTo(url: string) {
     this.router.navigateByUrl(url);
   }

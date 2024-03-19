@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../../auth.service';
 import { Router } from '@angular/router';
 import { User } from '../../models/User';
+import { Buffer } from 'buffer';
 
 @Component({
   selector: 'app-connect-register',
@@ -37,6 +38,21 @@ export class ConnectRegisterComponent {
       console.error("Echec");
     });
     // Vous pouvez envoyer les données du formulaire à un service pour l'inscription
+  }
+
+  onFileChange(event: any) {
+    if (event.target.files.length > 0) {
+      const file = event.target.files[0];
+  
+      let reader = new FileReader();
+      reader.onload = (e: any) => {
+        let arrayBuffer = e.target.result;
+        let buffer = Buffer.from(arrayBuffer);
+        // Mettre à jour la valeur de 'image' avec le buffer
+        this.formData.picture = buffer
+      };
+      reader.readAsArrayBuffer(file);
+    }
   }
 
 

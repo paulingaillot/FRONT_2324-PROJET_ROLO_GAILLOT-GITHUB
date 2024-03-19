@@ -21,7 +21,7 @@ export class ConnectLoginComponent {
     this.http.post<any>('http://localhost:3000/users/login', formValues)
     .subscribe(response => {
       console.log("L'user est connecté")
-      this.authService.login(new User(response.user));
+      this.authService.login(response.user);
       this.router.navigate(['/'])
         }, error => {
       console.error(error+" Bad password");

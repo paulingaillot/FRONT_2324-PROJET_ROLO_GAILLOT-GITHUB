@@ -3,33 +3,24 @@ class User {
     surname: string;
     username: string;
     mail: string;
-    picture: Blob;
+    picture: string | null;
     password: string;
     born: Date;
     is_admin: boolean;
     favorites: string[]; // assuming 'Event' is a string ID
-  
-    constructor({
-      name,
-      surname,
-      username,
-      mail,
-      picture,
-      password,
-      born,
+
+    constructor(
+      name="",
+      surname="",
+      username="",
+      mail="",
+      picture=null,
+      password="",
+      born=new Date(),
       is_admin = false,
       favorites = []
-    }: {
-      name: string;
-      surname: string;
-      username: string;
-      mail: string;
-      picture: Blob;
-      password: string;
-      born: Date;
-      is_admin?: boolean;
-      favorites?: string[];
-    }) {
+    )
+     {
       this.name = name;
       this.surname = surname;
       this.username = username;

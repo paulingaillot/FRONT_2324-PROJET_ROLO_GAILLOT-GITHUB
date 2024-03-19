@@ -42,7 +42,7 @@
         
         <div class="form-group">
           <label for="picture">Profile Image:</label>
-          <input type="file" class="form-control-file" id="picture" name="picture" [(ngModel)]="formData.picture" accept="image/*" required>
+          <input type="file" class="form-control-file" id="picture" name="picture" (change)="onFileChange($event)" accept="image/*" required>
         </div>
         
         <button type="submit" class="btn btn-primary" [disabled]="!registerForm.valid">Register</button>
