@@ -17,10 +17,14 @@ import { HttpClientModule} from '@angular/common/http';
 import { AuthGuardService } from './auth-guard.service';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
+import {SharedComponentsModule } from './shared-components/shared-components.module';
+import { HeaderComponent } from './shared-components/header/header.component';
+import { FooterComponent } from './shared-components/footer/footer.component';
 
 export const routes: Routes = [
   { path: 'event', component: EventListComponent, canActivate: mapToCanActivate([AuthGuardService])},
   { path: 'create-event', component: EventCreateComponent, canActivate: mapToCanActivate([AuthGuardService])},
+  { path: 'account', component: UserComponent, canActivate: mapToCanActivate([AuthGuardService])},
   { path: 'register', component: ConnectRegisterComponent},
   { path: 'login', component: ConnectLoginComponent},
   { path: '', redirectTo: 'event', pathMatch: 'full'},
@@ -46,7 +50,8 @@ export const routes: Routes = [
     HttpClientModule,
     RouterModule.forRoot(routes),
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    SharedComponentsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

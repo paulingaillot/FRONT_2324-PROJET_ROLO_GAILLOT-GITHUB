@@ -21,10 +21,6 @@ export class EventListComponent {
       this.events = events2; console.log(events2);
     });
   }
-  
-  logout() {
-    this.authService.logout(); // Appel de la fonction disconnect du service AuthService
-  }
 
   navigateTo(url: string) {
     this.router.navigateByUrl(url);
