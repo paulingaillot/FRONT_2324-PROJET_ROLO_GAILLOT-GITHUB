@@ -1,4 +1,8 @@
 import { Component } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { AuthService } from '../../auth.service';
+import { Router } from '@angular/router';
+import { User } from '../../models/User';
 
 @Component({
   selector: 'app-connect-register',
@@ -8,9 +12,21 @@ import { Component } from '@angular/core';
 export class ConnectRegisterComponent {
   formData: any = {};
 
+  constructor(private authService: AuthService, private http: HttpClient, private router: Router) { }
+
+
   onSubmit() {
     // Logique de soumission du formulaire ici
     console.log(this.formData);
+    this.http.post<any>('http://localhost:3000/users/addUser', this.formData)
+    .subscribe(response => {
+      console.log("L'user est inscrit et connecté")
+      console.log(response)
+      this.authService.login(new User(response.user));
+      this.router.navigate(['/'])
+        }, error => {
+      console.error("Echec");
+    });
     // Vous pouvez envoyer les données du formulaire à un service pour l'inscription
   }
 
