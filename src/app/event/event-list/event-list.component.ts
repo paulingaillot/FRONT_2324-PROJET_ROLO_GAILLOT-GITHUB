@@ -29,12 +29,54 @@ export class EventListComponent implements OnInit {
     this.router.navigateByUrl(url);
   }
 
-  getImageUrl(blob: Blob): string | undefined {
-    try {
-      return URL.createObjectURL(blob);
-    } catch (error) {
-      console.error('Error getting image URL:', error);
-      return '';
-    }
+  // Function to filter events by name
+  filterByName(eventName: string) {
+    this.eventService.filterByName(eventName).subscribe(filteredEvents => {
+      this.events = filteredEvents;
+    });
   }
+
+  // Function to filter events by price range
+  filterByPrice(minPrice: number, maxPrice: number) {
+    this.eventService.filterByPrice(minPrice, maxPrice).subscribe(filteredEvents => {
+      this.events = filteredEvents;
+    });
+  }
+
+  // Function to filter events by theme
+  filterByTheme(theme: string) {
+    this.eventService.filterByTheme(theme).subscribe(filteredEvents => {
+      this.events = filteredEvents;
+    });
+  }
+
+  // Function to sort events by price in ascending order
+  sortByPriceAscending() {
+    this.eventService.sortByPriceAscending().subscribe(sortedEvents => {
+      this.events = sortedEvents;
+    });
+  }
+
+  // Function to sort events by price in descending order
+  sortByPriceDescending() {
+    this.eventService.sortByPriceDescending().subscribe(sortedEvents => {
+      this.events = sortedEvents;
+    });
+  }
+
+  // Function to sort events by date in ascending order
+  sortByDateAscending() {
+    this.eventService.sortByDateAscending().subscribe(sortedEvents => {
+      this.events = sortedEvents;
+    });
+  }
+
+  // Function to sort events by date in descending order
+  sortByDateDescending() {
+    this.eventService.sortByDateDescending().subscribe(sortedEvents => {
+      this.events = sortedEvents;
+    });
+  }
+
+  
 }
