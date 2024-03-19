@@ -15,10 +15,13 @@ import { UserComponent } from './user/user.component';
 import { Routes, RouterModule, mapToCanActivate } from '@angular/router';
 import { HttpClientModule} from '@angular/common/http';
 import { AuthGuardService } from './auth-guard.service';
-
+import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 
 export const routes: Routes = [
   { path: 'event', component: EventListComponent, canActivate: mapToCanActivate([AuthGuardService])},
+  { path: 'create-event', component: EventCreateComponent, canActivate: mapToCanActivate([AuthGuardService])},
+  { path: 'register', component: ConnectRegisterComponent},
   { path: 'login', component: ConnectLoginComponent},
   { path: '', redirectTo: 'event', pathMatch: 'full'},
   { path: '**', redirectTo: 'event', pathMatch: 'full'}
@@ -41,7 +44,9 @@ export const routes: Routes = [
   imports: [
     BrowserModule,
     HttpClientModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
