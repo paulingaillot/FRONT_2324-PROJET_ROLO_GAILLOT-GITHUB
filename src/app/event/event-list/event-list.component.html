@@ -1,6 +1,28 @@
 <html>
 
 <app-header></app-header>
+<br>
+<div class="container">
+  <div class="table-wrapper"style="position: relative; overflow: auto;  height: 600px;">
+    <table class="table table-fixed">
+      <thead class="table-primary" style="position:sticky;">
+        <tr>
+          <th>Nom</th>
+          <th>Image</th>
+          <th>Thème</th>
+          <th>Prix</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor='let event of events'>
+          <td>{{event.name}}</td>
+          <td><img [src]="getImageUrl(event.image)" alt="Logo Event"/></td>
+          <td>{{event.theme}}</td>
+          <td>{{event.prix}} €</td>
+          <td>{{ event.date | date: 'medium' : 'UTC' }}</td>
+        </tr>
+      </tbody>
 
 
 <table class="table">
@@ -23,8 +45,9 @@
         <td>{{event.date}}</td>
     </tbody>
     </table>
+  </div>
+</div>
+<br>
 
-    <button class='btn btn-primary'
-    (click)='navigateTo("/create-event")'> Create new Event </button>
 
 </html>

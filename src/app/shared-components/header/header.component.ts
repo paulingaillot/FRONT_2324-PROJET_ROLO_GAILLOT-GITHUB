@@ -24,4 +24,8 @@ export class HeaderComponent {
   Account() {
     this.router.navigate(['/account']);
   }
+
+  CreateEvent() {
+    this.router.navigate(["/create-event"]);
+  }
 }
