@@ -16,28 +16,28 @@
         </div>
         
         <div class="form-group">
-          <label for="firstName">First Name:</label>
-          <input type="text" class="form-control" id="firstName" name="firstName" [(ngModel)]="formData.firstName" required>
+          <label for="name">First Name:</label>
+          <input type="text" class="form-control" id="name" name="name" [(ngModel)]="formData.name" required>
         </div>
         
         <div class="form-group">
-          <label for="lastName">Last Name:</label>
-          <input type="text" class="form-control" id="lastName" name="lastName" [(ngModel)]="formData.lastName" required>
+          <label for="surname">Last Name:</label>
+          <input type="text" class="form-control" id="surname" name="surname" [(ngModel)]="formData.surname" required>
         </div>
         
         <div class="form-group">
-          <label for="email">Email:</label>
-          <input type="email" class="form-control" id="email" name="email" [(ngModel)]="formData.email" required>
+          <label for="mail">Email:</label>
+          <input type="email" class="form-control" id="mail" name="mail" [(ngModel)]="formData.mail" required>
         </div>
         
         <div class="form-group">
-          <label for="dob">Date of Birth:</label>
-          <input type="date" class="form-control" id="dob" name="dob" [(ngModel)]="formData.dob" required>
+          <label for="born">Date of Birth:</label>
+          <input type="date" class="form-control" id="born" name="born" [(ngModel)]="formData.born" required>
         </div>
         
         <div class="form-group">
-          <label for="profileImage">Profile Image:</label>
-          <input type="file" class="form-control-file" id="profileImage" name="profileImage" (change)="onFileSelected($event)" accept="image/*" required>
+          <label for="picture">Profile Image:</label>
+          <input type="file" class="form-control-file" id="picture" name="picture" [(ngModel)]="formData.picture" accept="image/*" required>
         </div>
         
         <button type="submit" class="btn btn-primary" [disabled]="!registerForm.valid">Register</button>

@@ -17,12 +17,21 @@ export class ConnectRegisterComponent {
 
   onSubmit() {
     // Logique de soumission du formulaire ici
+
+    if (this.formData.password !== this.formData.repeatPassword) {
+      // Si les mots de passe ne correspondent pas, ne pas soumettre le formulaire
+      return;
+    }
+
+    // Supprimer le champ de confirmation du mot de passe du formData
+    delete this.formData.repeatPassword;
+
     console.log(this.formData);
     this.http.post<any>('http://localhost:3000/users/addUser', this.formData)
     .subscribe(response => {
       console.log("L'user est inscrit et connecté")
       console.log(response)
-      this.authService.login(new User(response.user));
+      this.authService.login(new User(response));
       this.router.navigate(['/'])
         }, error => {
       console.error("Echec");
@@ -30,11 +39,6 @@ export class ConnectRegisterComponent {
     // Vous pouvez envoyer les données du formulaire à un service pour l'inscription
   }
 
-  onFileSelected(event: any) {
-    // Logique pour gérer la sélection d'une image depuis les fichiers locaux ici
-    const file: File = event.target.files[0];
-    console.log(file);
-    // Vous pouvez traiter le fichier comme nécessaire, par exemple, le téléverser sur un serveur
-  }
+
 
 }
