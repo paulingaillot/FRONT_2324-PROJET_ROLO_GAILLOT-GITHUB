@@ -18,7 +18,6 @@ export class HeaderComponent {
   }
 
   isUserLoggedIn() {
-    console.log(this.authService.isLoggedIn());
     return this.authService.isLoggedIn();
   }
 

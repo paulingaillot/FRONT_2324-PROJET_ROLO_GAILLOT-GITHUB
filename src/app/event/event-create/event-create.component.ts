@@ -30,6 +30,23 @@ export class EventCreateComponent implements OnInit {
     });
   }
 
+  onFileChange(event: any) {
+    if (event.target.files.length > 0) {
+      const file = event.target.files[0];
+  
+      let reader = new FileReader();
+      reader.onload = (e: any) => {
+        let arrayBuffer = e.target.result;
+        let buffer = Buffer.from(arrayBuffer);
+        // Mettre à jour la valeur de 'image' avec le buffer
+        this.eventForm.patchValue({
+          image: buffer
+        });
+      };
+      reader.readAsArrayBuffer(file);
+    }
+  }
+
   onSubmit() {
     console.log(this.eventForm.value);
     this.http.post<any>('http://localhost:3000/events/', this.eventForm.value)
