@@ -7,24 +7,39 @@
 <div class="container" style="height: 500px;overflow-y:scroll;">
   <div class="table-wrapper" style="position: relative; height: 500px;">
     <div class="row mb-3">
-      <div class="col">
-        <!-- Input field for filtering by event name -->
-        <input type="text" class="form-control" placeholder="Filter by name" #eventNameInput>
-        <button class="btn btn-primary" (click)="filterByName(eventNameInput.value)">Filter by Name</button>
-      </div>
-      <div class="col">
-        <!-- Input fields for filtering by price range -->
-        <input type="number" class="form-control" placeholder="Min price" #minPriceInput>
-        <input type="number" class="form-control" placeholder="Max price" #maxPriceInput>
-      </div>
-      <div class="col">
-        <!-- Buttons to trigger filtering and sorting -->
-       
-        <button class="btn btn-primary" (click)="filterByPrice(+minPriceInput.value, +maxPriceInput.value)">Filter by Price Range</button>
-      </div>
+      <div class="form-outline" style="width: 8rem;">
+        <input min="0" [max]="selectedMaxPrice" type="number" id="minPriceInput" class="form-control" [(ngModel)]="selectedMinPrice">
+        <label class="form-label" for="minPriceInput">Min Price</label>
     </div>
+    <div class="form-outline" style="width: 8rem;">
+        <input min="0" [max]="maxEventPrice"  type="number" id="maxPriceInput" class="form-control" [(ngModel)]="selectedMaxPrice">
+        <label class="form-label" for="maxPriceInput">Max Price</label>
+    </div>
+    <div class="col">
+      <!-- Button to trigger filtering by price range -->
+      <button class="btn btn-sm" style="background-color:#A3B18A;" (click)="filterByPrice(selectedMinPrice, selectedMaxPrice)">Filtrer par prix</button>
+  </div>
+  <div class="col">
+    <div class="input-group">
+        <div class="input-group-prepend">
+            <!-- Button wrapper for the click event -->
+            <button class="input-group-text"  (click)="filterByName(eventNameInput.value)">
+                <!-- Search icon -->
+                <i class="bi bi-search"></i>
+            </button>
+        </div>
+        <!-- Input field for filtering by event name -->
+        <input type="text" class="form-control" formControlName="name" placeholder="Filter by Name" #eventNameInput >
+    </div>
+</div>
+    </div>
+    <div class="row mb-3">
+      
+  </div>
+    
+    
     <table class="table  table-fixed table-hover table-light">
-      <thead class="table-success" style="position: sticky; top: 0; z-index: 1; display: line;">
+      <thead class="table-secondary" style="background-color:#A3B18A; position: sticky; top: 0; z-index: 1; display: line;">
         <tr>
           <th>Nom</th>
           <th>Image</th>
@@ -46,11 +61,12 @@
         </tr>
       </thead>
       <tbody style="overflow-y: scroll; display: line; height: 400px;">
-        <tr *ngFor='let event of events'>
+        <tr *ngFor='let event of events' (click)="redirectToEventDetails(event._id)">
+          
           <td>{{event.name}}</td>
           <td><img [src]="'data:image/jpeg;base64,' + event.image" style="width: 45px; height: 45px;"></td>  
           <td>{{event.theme}}</td>
-          <td>{{event.prix}} €</td>
+          <td > {{event.prix}} €</td>
           <td>{{ event.date | date: 'medium' : 'UTC' }}</td>
         </tr>
       </tbody>

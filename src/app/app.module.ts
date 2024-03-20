@@ -23,6 +23,7 @@ import { FooterComponent } from './shared-components/footer/footer.component';
 
 export const routes: Routes = [
   { path: 'event', component: EventListComponent, canActivate: mapToCanActivate([AuthGuardService])},
+  { path: 'event-details/:id', component: EventDetailsComponent, canActivate: mapToCanActivate([AuthGuardService])},
   { path: 'create-event', component: EventCreateComponent, canActivate: mapToCanActivate([AuthGuardService])},
   { path: 'account', component: UserComponent, canActivate: mapToCanActivate([AuthGuardService])},
   { path: 'tchat', component: TchatComponent, canActivate: mapToCanActivate([AuthGuardService])},

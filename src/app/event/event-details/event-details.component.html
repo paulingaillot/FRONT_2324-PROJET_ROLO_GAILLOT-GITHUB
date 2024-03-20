@@ -1,1 +1,25 @@
-<p>event-details works!</p>
+<html>
+  <app-header></app-header>
+  <br>
+  <div class="m-auto" style="max-width: 33rem;">
+    <div *ngIf="event">
+      <div class="row no-gutters ">
+        <div class="col">
+          <img class="card-img-top" [src]="'data:image/jpeg;base64,' + event.image" alt="{{ event.name }}" style="width:11rem;">
+        </div>
+        <div class="col" style="background-color: #A3B18A;">
+          <div class="card-body">
+            <h3 class="card-title">{{ event.name }}</h3>
+            <div class="card-text">
+              <br>
+              <p>Thème: {{ event.theme }}</p>
+              <p>Prix: {{ event.prix }} €</p>
+              <p>Date: {{ event.date | date: 'medium' : 'UTC' }}</p>
+              <!-- Add more details as needed -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</html>
