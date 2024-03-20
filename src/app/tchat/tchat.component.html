@@ -3,38 +3,16 @@
     <app-header></app-header>
 
       <div class="card m-3">
-        <div class="card-header">
-          Informations de connexion
-        </div>
-        <div class="card-body">
-          <div class="form-group row">
-            <label for="server" class="col-sm-2 col-form-label">Server</label>
-            <div class="col-sm-10">
-              <input type="text" class="form-control" id="server" placeholder="IP:port" value="localhost:3000">
-            </div>
-          </div>
-          <div class="form-group row">
-            <label for="room" class="col-sm-2 col-form-label">Salon</label>
-            <div class="col-sm-10">
-              <input type="text" class="form-control" id="room" placeholder="IP:port" value="accueil">
-            </div>
-          </div>
-          <div class="form-group row">
-            <label for="pseudo" class="col-sm-2 col-form-label">Pseudo</label>
-            <div class="col-sm-10">
-              <input type="text" class="form-control" id="pseudo" placeholder="pseudo" value="utilisateur">
-            </div>
-          </div>
-          <a id="connect" class="btn btn-primary float-right">(Re)Connexion</a>
-
-       </div>
-      </div>
-
-      <div class="card m-3">
         <div id="salon" class="card-header">
-            <div class="user-list">
-                <button *ngFor="let user of users">{{ user }}</button>
-              </div>
+          <div class="user-list">
+            <img *ngFor="let user of users" 
+            [src]="'data:image/jpeg;base64,' + getImage(user)"
+            alt="{{ user }}" 
+            width="50" 
+            height="50" 
+            (click)="selectUser(user)" 
+       />
+                </div>
         </div>
         <div class="card-body">
           <!-- Div éditable pour afficher les messages avec balises -->
@@ -44,7 +22,7 @@
               <input type="text" class="form-control" id="message" placeholder="Message" value="Hello!">
             </div>
           </div>
-          <a id="send" class="btn btn-primary float-right">Envoyer</a>
+          <a id="send" class="btn btn-primary float-right" (click)="sendMessage()">Envoyer</a>
         </div>
       </div>
 

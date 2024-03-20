@@ -10,8 +10,6 @@ export class EventService {
 
   
   constructor(private http: HttpClient) {
-
-
   }
 
   getEvents(): Observable<Event[]> {
