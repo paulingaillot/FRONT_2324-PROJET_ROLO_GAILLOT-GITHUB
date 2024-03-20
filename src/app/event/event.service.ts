@@ -20,6 +20,12 @@ export class EventService {
     catchError(this.handleError)
     );
     }
+  getEventById(eventId: any): Observable<Event> {
+      return this.http.get<Event>(`http://localhost:3000/events/${eventId}`).pipe(
+      tap(data => console.log('All: ', JSON.stringify(data))),
+      catchError(this.handleError)
+      );
+      }
   // Method to filter events by name
   filterByName(eventName: string): Observable<Event[]> {
     return this.http.get<Event[]>(`http://localhost:3000/events/filter/name/${eventName}`).pipe(

@@ -12,6 +12,9 @@ import { Router } from '@angular/router';
 })
 export class EventListComponent implements OnInit {
   events: Event[] = [];
+  maxEventPrice = 0;
+  selectedMinPrice: number = 0;
+  selectedMaxPrice: number = 0;
 
   constructor(private eventService: EventService, 
               private authService: AuthService, 
@@ -22,11 +25,15 @@ export class EventListComponent implements OnInit {
     console.log('test');
     this.eventService.getEvents().subscribe(events2 => {
       this.events = events2.map(event => event);
+      this.calculateMaxPrice();
     });
   }
 
   navigateTo(url: string) {
     this.router.navigateByUrl(url);
+  }
+  redirectToEventDetails(eventId: String) {
+    this.router.navigate(['/event-details', eventId]);
   }
 
   // Function to filter events by name
@@ -78,5 +85,7 @@ export class EventListComponent implements OnInit {
     });
   }
 
-  
+  calculateMaxPrice() {
+    this.maxEventPrice = Math.max(...this.events.map(event => event.prix));
+  }
 }

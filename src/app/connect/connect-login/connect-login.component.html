@@ -2,14 +2,16 @@
 <html>
 
 <app-header></app-header>
-
+<br>
 
 <head>
     <title>Connexion</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 </head>
 <body>
-    <div class="container">
+    
+    <div class="container card bg-light ">
+        <img src="https://cdn-icons-png.flaticon.com/512/5087/5087579.png" alt="Register Icon" class="m-auto" style="width: 11rem; height: 11rem; ">
         <form #loginForm="ngForm" (ngSubmit)="checkPassword(loginForm.value)">
             <div class="form-group">
                 <label for="username">Nom d'utilisateur:</label>
@@ -19,8 +21,11 @@
                 <label for="password">Mot de passe:</label>
                 <input type="password" id="password" name="password" class="form-control" [(ngModel)]="password" required>
             </div>
-            <button type="submit" class="btn btn-primary" [disabled]="!loginForm.valid">Se connecter</button>
-            <button type="button" class="btn btn-primary" (click)="navigateToRegister()">Register</button>
+            <div class="text-center"> <!-- Center the button and the paragraph -->
+                <button type="submit" class="btn btn-primary" [disabled]="!loginForm.valid">Se connecter</button>
+                <div>Si vous n'avez pas encore de compte : <button type="button" class="btn btn-link" (click)="navigateToRegister()">Register</button></div>
+            </div>
+            
         </form>
     </div>
 </body>

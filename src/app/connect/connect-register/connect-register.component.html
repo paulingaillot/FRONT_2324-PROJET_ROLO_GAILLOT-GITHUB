@@ -1,50 +1,60 @@
 <html>
-
     <app-header></app-header>
-
-
-
-    <form (ngSubmit)="onSubmit()" #registerForm="ngForm">
-        <div class="form-group">
-          <label for="username">Username:</label>
-          <input type="text" class="form-control" id="username" name="username" [(ngModel)]="formData.username" required>
-        </div>
+    <br>
+    <div class="container card bg-light ">
+        <img src="https://cdn-icons-png.flaticon.com/512/5087/5087579.png" alt="Register Icon" class="m-auto" style="width: 8rem; height: 8rem; ">
         
-        <div class="form-group">
-          <label for="password">Password:</label>
-          <input type="password" class="form-control" id="password" name="password" [(ngModel)]="formData.password" required>
-        </div>
-        
-        <div class="form-group">
-          <label for="repeatPassword">Repeat Password:</label>
-          <input type="password" class="form-control" id="repeatPassword" name="repeatPassword" [(ngModel)]="formData.repeatPassword" required>
-        </div>
-        
-        <div class="form-group">
-          <label for="name">First Name:</label>
-          <input type="text" class="form-control" id="name" name="name" [(ngModel)]="formData.name" required>
-        </div>
-        
-        <div class="form-group">
-          <label for="surname">Last Name:</label>
-          <input type="text" class="form-control" id="surname" name="surname" [(ngModel)]="formData.surname" required>
-        </div>
-        
-        <div class="form-group">
-          <label for="mail">Email:</label>
-          <input type="email" class="form-control" id="mail" name="mail" [(ngModel)]="formData.mail" required>
-        </div>
-        
-        <div class="form-group">
-          <label for="born">Date of Birth:</label>
-          <input type="date" class="form-control" id="born" name="born" [(ngModel)]="formData.born" required>
-        </div>
-        
-        <div class="form-group">
-          <label for="picture">Profile Image:</label>
-          <input type="file" class="form-control-file" id="picture" name="picture" (change)="onFileChange($event)" accept="image/*" required>
-        </div>
-        
-        <button type="submit" class="btn btn-primary" [disabled]="!registerForm.valid">Register</button>
-      </form>
+        <form (ngSubmit)="onSubmit()" #registerForm="ngForm">
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label for="username">Username:</label>
+                        <input type="text" class="form-control" id="username" name="username" [(ngModel)]="formData.username" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="password">Mot de passe:</label>
+                        <input type="password" class="form-control" id="password" name="password" [(ngModel)]="formData.password" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="repeatPassword">Confirme le mot de passe:</label>
+                        <input type="password" class="form-control" id="repeatPassword" name="repeatPassword" [(ngModel)]="formData.repeatPassword" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="mail">Email:</label>
+                        <input type="email" class="form-control" id="mail" name="mail" [(ngModel)]="formData.mail" required>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label for="name">Prénom:</label>
+                        <input type="text" class="form-control" id="name" name="name" [(ngModel)]="formData.name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="surname">Nom:</label>
+                        <input type="text" class="form-control" id="surname" name="surname" [(ngModel)]="formData.surname" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="born">Date de naissance:</label>
+                        <input type="date" class="form-control" id="born" name="born" [(ngModel)]="formData.born" required>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="form-group">
+                <label for="picture">Image de profil: </label>
+                <input type="file" class="form-control-file" id="picture" name="picture" (change)="onFileChange($event)" accept="image/*" required>
+            </div>
+            <br>
+            <div class="text-center">
+                <button type="submit" class="btn  " style="color:white;background-color:#3A5A40;" [disabled]="!registerForm.valid">Créer le compte </button>
+            </div>
+            <br>
+        </form>
+    </div>
+    <br>
 </html>
