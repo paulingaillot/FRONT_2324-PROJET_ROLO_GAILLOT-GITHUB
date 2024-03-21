@@ -15,6 +15,9 @@
               <p>Thème: {{ event.theme }}</p>
               <p>Prix: {{ event.prix }} €</p>
               <p>Date: {{ event.date | date: 'medium' : 'UTC' }}</p>
+
+              <button class="btn btn-light" (click)="navigateToEdit(event._id)">Modifier l'évènement</button>
+              <p></p>
               <!-- Add more details as needed -->
             </div>
           </div>
@@ -38,11 +41,11 @@
 <br>
   
   <div *ngIf="!isUserFavorited">
-    <button (click)="addToFavourite()">Add to Favorites</button>
+    <button class="btn btn-light" (click)="addToFavourite()">Add to Favorites</button>
   </div>
 
   <div *ngIf="isUserFavorited">
-    <button (click)="deleteFromFavorite()">Delete from Favorites</button>
+    <button class="btn btn-light" (click)="deleteFromFavorite()">Delete from Favorites</button>
   </div>
 
 

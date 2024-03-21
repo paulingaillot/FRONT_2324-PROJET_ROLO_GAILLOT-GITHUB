@@ -56,6 +56,9 @@ this.router.navigateByUrl(url);
 navigateToChat(username: string){
   this.router.navigate(['/tchat', username])
 }
+navigateToEdit(event_id: String){
+  this.router.navigate(['/edit-event', event_id])
+}
 addToFavourite(): void {
   const eventId = this.route.snapshot.paramMap.get('id');
   this.eventService.addToFavorites(eventId, this.user_actual).subscribe(response => {
