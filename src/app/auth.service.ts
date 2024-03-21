@@ -8,7 +8,6 @@ export class AuthService {
 
   login(user: any) {
     localStorage.setItem('isAuthenticated', 'true');
-    console.log(JSON.stringify(user));
 
     localStorage.setItem('user', JSON.stringify(user));
     const userJson = localStorage.getItem('user');

@@ -17,29 +17,15 @@ export class UserComponent implements OnInit {
 
   constructor(private authService: AuthService, private http: HttpClient, private router: Router) { }
 
-  onSubmit() {  
-    console.log(this.profileForm.value);
+  edit() {
+    this.router.navigate(['/account/edit']);
   }
+
+
 
   ngOnInit(): void {
     this.user = this.authService.loadUser();
     console.log(this.user);
   }
 
-  onFileChange(event: any) {
-    if (event.target.files.length > 0) {
-      const file = event.target.files[0];
-  
-      let reader = new FileReader();
-      reader.onload = (e: any) => {
-        let arrayBuffer = e.target.result;
-        let buffer = Buffer.from(arrayBuffer);
-        // Mettre à jour la valeur de 'image' avec le buffer
-        this.profileForm.patchValue({
-          image: buffer
-        });
-      };
-      reader.readAsArrayBuffer(file);
-    }
-  }
 }

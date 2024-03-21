@@ -34,16 +34,16 @@ export class ConnectRegisterComponent {
     // Supprimer le champ de confirmation du mot de passe du formData
     delete this.formData.repeatPassword;
 
-    console.log(this.formData);
     this.http.post<any>('http://localhost:3000/users/addUser', this.formData)
     .subscribe(response => {
       this.errorMessage = "";
-      console.log("L'user est inscrit et connecté")
-      console.log(response)
-      this.authService.login(new User(response));
-      this.router.navigate(['/'])
-        }, error => {
-      console.error("Echec");
+      console.log("L'utilisateur est inscrit et connecté");
+      console.log(response);
+      this.authService.login(response);
+      this.router.navigate(['/']);
+    }, error => {
+      console.error("Echec :", error);
+      this.errorMessage = "Une erreur s'est produite lors de l'inscription.";
     });
     // Vous pouvez envoyer les données du formulaire à un service pour l'inscription
   }

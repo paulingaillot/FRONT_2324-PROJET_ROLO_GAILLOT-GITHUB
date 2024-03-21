@@ -23,7 +23,7 @@
             </div>
             <div class="form-group">
                 <label for="password">Mot de passe:</label>
-                <input type="password" id="password" name="password" class="form-control" [(ngModel)]="password" required minlength="6" #passwordField="ngModel">
+                <input type="password" id="password" name="password" class="form-control" [(ngModel)]="password" required minlength="1" #passwordField="ngModel">
                 <div *ngIf="passwordField.invalid && (passwordField.dirty || passwordField.touched)">
                     <div class="error-message" *ngIf="passwordField.errors?.['required']">Le mot de passe est requis.</div>
                     <div class="error-message" *ngIf="passwordField.errors?.['minlength']">Le mot de passe doit comporter au moins 6 caractères.</div>

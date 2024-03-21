@@ -1,29 +1,42 @@
+<html>
+<head>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+</head>
 <body>
 
     <app-header></app-header>
-
-      <div class="card m-3">
-        <div id="salon" class="card-header">
+      <div class="card">
+      <div class="d-flex m-3">
           <div class="user-list">
-            <img *ngFor="let user of users" 
-            [src]="'data:image/jpeg;base64,' + getImage(user)"
-            alt="{{ user }}" 
-            width="50" 
-            height="50" 
-            (click)="selectUser(user)" 
-       />
-                </div>
-        </div>
-        <div class="card-body">
-          <!-- Div éditable pour afficher les messages avec balises -->
-          <div class="form-control mb-3"  id="messages" contenteditable="true"></div>          <div class="form-group row">
-            <label for="message" class="col-sm-2 col-form-label">Message</label>
-            <div class="col-sm-10">
-              <input type="text" class="form-control" id="message" placeholder="Message" value="Hello!">
+            <h2 class="user-list-title">Messages</h2>
+            <hr>
+            <div *ngFor="let user of users" class="user-item" (click)="selectUser(user)" >
+              <div class="card" id="card2">
+                <div class="card-body">
+              <img class="user-image" 
+                [src]="'data:image/jpeg;base64,' + userImage[user]"
+                alt="{{ user }}" 
+                width="50" 
+                height="50" 
+              />
+              <strong class="user-name">{{ user }}</strong></div></div>
+              <hr>
             </div>
           </div>
-          <a id="send" class="btn btn-primary float-right" (click)="sendMessage()">Envoyer</a>
+        <div class="chat">
+          <h2 class="chat-title">{{getOtherUsername()}}</h2>
+          <!-- Div éditable pour afficher les messages avec balises -->
+          <div class="form-control mb-3"  id="messages" contenteditable="false"></div>          
+          <div class="form-group row">
+            <div class="input-group mb-3">
+              <input type="text" class="form-control" id="message" placeHolder="Write your message" (keyup.enter)="sendMessage()">
+              <div class="input-group-append">
+                <span class="input-group-text icon-bg"><i class="bi bi-send" (click)="sendMessage()"></i></span>
+              </div>
+            </div>
+            </div>
         </div>
       </div>
-
+    </div>
   </body>
+  </html>

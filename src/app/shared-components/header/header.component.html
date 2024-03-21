@@ -16,9 +16,13 @@
         <li class="nav-item active " *ngIf="isUserLoggedIn()">
             <a class="nav-link" (click)="Account()" >Mon Compte <span class="sr-only"></span></a>
           </li>
+          <li class="nav-item  " *ngIf="isUserLoggedIn()">
+            <a class="nav-link" (click)="tchat()">Tchat</a>
+          </li>
         <li class="nav-item  " *ngIf="isUserLoggedIn()">
           <a class="nav-link" href="#" (click)="logout()">Disconnect</a>
         </li>
+
       </ul>
       
     </div>

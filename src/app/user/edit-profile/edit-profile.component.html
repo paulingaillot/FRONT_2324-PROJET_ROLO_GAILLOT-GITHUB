@@ -1,0 +1,47 @@
+<p>edit-profile works!</p>
+<html>
+    <body>
+        <app-header></app-header>
+
+
+
+        <form (ngSubmit)="onSubmit()" #userForm="ngForm">
+            <div class="form-group">
+              <label for="firstName">Prénom</label>
+              <input type="text" id="firstName" name="firstname" class="form-control" [(ngModel)]="profileForm.name" required>
+            </div>
+        
+            <div class="form-group">
+              <label for="lastName">Nom</label>
+              <input type="text" id="lastName" name="lastname" class="form-control" [(ngModel)]="profileForm.surname" required>
+            </div>
+        
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="mail" class="form-control" [(ngModel)]="profileForm.mail" required>
+            </div>
+        
+            <div class="form-group">
+              <label for="birthDate">Date de naissance</label>
+              <input type="date" id="birthDate" name="born" class="form-control" [(ngModel)]="profileForm.born" required>
+            </div>
+        
+            <div class="form-group">
+              <label for="password">Mot de passe</label>
+              <input type="password" id="password" name="password" class="form-control" [(ngModel)]="profileForm.password" required>
+            </div>
+        
+            <div class="form-group">
+              <label for="confirmPassword">Confirmer le mot de passe</label>
+              <input type="password" id="confirmPassword" name="repeat_password" class="form-control" [(ngModel)]="profileForm.repeat_password" required>
+            </div>
+        
+            <div class="form-group">
+              <label for="image">Image de profil</label>
+              <input type="file" id="image" name="image" class="form-control" (change)="onFileChange($event)" required>
+            </div>
+        
+            <button type="submit" class="btn btn-primary" [disabled]="!userForm.valid">Mettre à jour le profil</button>
+          </form>
+    </body>
+</html>>

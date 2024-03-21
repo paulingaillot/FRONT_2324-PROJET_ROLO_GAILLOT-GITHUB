@@ -17,6 +17,11 @@ export class HeaderComponent {
     this.authService.logout(); // Appel de la fonction disconnect du service AuthService
   }
 
+  
+  tchat() {
+    this.router.navigate(['/tchat']);
+    }
+
   isUserLoggedIn() {
     return this.authService.isLoggedIn();
   }

@@ -2,8 +2,13 @@ import { Component } from '@angular/core';
 import { io, Socket } from 'socket.io-client';
 import { OnInit } from '@angular/core';
 import { AuthService } from '../auth.service';
-import { throwError, Observable, catchError, tap } from 'rxjs';
+import { throwError, Observable, catchError, tap, map } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+
+interface userData {
+  username: string;
+  picture: string;
+}
 
 @Component({
   selector: 'app-tchat',
@@ -13,7 +18,8 @@ import { HttpClient } from '@angular/common/http';
 export class TchatComponent implements OnInit{
   private socket: Socket;
   users: string[] = []; // Add this line
-  roomName: String
+  roomName: String;
+  userImage: any = {}; // Add this line
 
   constructor(private authService: AuthService, private http: HttpClient) {
     this.socket = io('http://localhost:3000', {
@@ -24,8 +30,11 @@ export class TchatComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.getUsers().subscribe(users => {
-      this.users = users; // Update the list of users
+    this.getUsers().subscribe(data => {
+      data.forEach((user: userData) => {
+        this.users.push(user.username);
+        this.userImage[user.username] = user.picture;
+      });
     });
     this.getMessages().subscribe(data => {
       console.log(`message reçcu : ` + data.message);
@@ -43,6 +52,7 @@ export class TchatComponent implements OnInit{
   sendMessage(): void {
     const message = (document.getElementById('message') as HTMLInputElement).value;
     this.socket.emit('message', this.roomName, message);
+    (document.getElementById('message') as HTMLInputElement).value = "";
   }
 
   getMessages(): Observable<{ from: string, message: string }> {
@@ -51,10 +61,8 @@ export class TchatComponent implements OnInit{
     });
   }
 
-  getUsers(): Observable<string[]> {
-    return new Observable(observer => {
-      this.socket.on('users', (users: string[]) => {observer.next(users)});
-    });
+  getUsers(): Observable<userData[]> {
+    return this.http.get<userData[]>('http://localhost:3000/users/all');
   }
   
   selectUser(username: string): void {
@@ -103,11 +111,18 @@ export class TchatComponent implements OnInit{
     return throwError(err);
   }
 
-  getImage(username:String) {
-    this.http.get<any>('http://localhost:3000/users/getUserByUsername/'+username)
-    .subscribe(response => {
-      return response.user;
-    });
+  getImage(username: string): Observable<any> {
+    return this.http.get<any>('http://localhost:3000/users/userPicture/' + username)
+      .pipe(map((response: any) => response.user));
+  }
+
+  getOtherUsername(): string {
+    try {
+    const usernames = this.roomName.split('-');
+    return usernames[0] === this.authService.loadUser().username ? usernames[1] : usernames[0];
+    }catch(e) {
+      return "";
+    }
   }
 
 }

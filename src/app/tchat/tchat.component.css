@@ -1,5 +1,87 @@
-.user-list {
-    display: flex;
-    flex-direction: row;
-    gap: 10px;
+  .user-image {
+    border-radius: 50%; /* Make the image round */
+    transition: transform 0.3s ease; /* Transition for smooth movement */
+    align-items: start; 
+    margin-left: 10%;
+  }
+  
+  #messages {
+    overflow-y: auto; /* Add a scrollbar if the content is too tall */
+    max-height: calc(100vh - 300px); /* Set the maximum height to 100% of the viewport height */
+  }
+
+#card2 {
+  background-color: #3A5A40; /* Dark blue background */
+  border: 0px;
+}
+
+  .user-list-title {
+    color: #ffffff; /* White text */
+    padding: 10px; /* Some padding */
+    text-align: end; /* Center the text */
+  }
+
+  .user-image:hover {
+    transform: scale(1.1); /* Enlarge the image slightly when mouse hovers */
+  }
+
+  .user-image:active {
+    animation: clickAnimation 0.3s; /* Animation when image is clicked */
+  }
+
+  #card2:hover {
+    /* Add styles for when the mouse is over the item */
+    border: 1px solid #000; /* Add a border */
+    cursor: pointer; /* Change the cursor to a hand */
+  }
+  
+  #card2:active {
+    /* Add styles for when the item is being clicked */
+    background-color: #ddd; /* Change the background color */
+  }
+
+  .user-list {
+    background-color: #3A5A40; /* Dark blue background */
+    flex: 1; /* Take up 1 part of the available space */
+    max-width: 200px; /* Limit the width of the user list */
+    overflow-y: auto; /* Add a scrollbar if the content is too tall */
+    height: calc(100vh - 100px); /* Set the height to 100% of the viewport height minus the padding of the card */
+  }
+  
+  .user-name {
+    text-align: end; /* Align the text to the right */
+    margin-left: 20%;
+  }
+
+  .user-item {
+    margin-top: 10px; /* Add some space at the top of the user list */
+    margin-bottom: 10px;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  hr {
+    border: none; /* Remove the default border */
+    border-top: 1px solid #ffffff; /* Add a white top border */
+    margin-left: 10%;
+    margin-right: 10%;
+  }
+  
+  .chat {
+    padding: 25px;
+    background-color: #A3B18A;
+    flex: 3; /* Take up 3 parts of the available space */
+    margin-left: 1px; /* Add some space between the user list and the chat */
+  }
+
+  .chat-title {
+    color: #ffffff; /* White text */
+    padding: 10px; /* Some padding */
+    text-align: center; /* Center the text */
+  }
+
+  @keyframes clickAnimation {
+    0% { transform: scale(1); }
+    50% { transform: scale(0.9); }
+    100% { transform: scale(1); }
   }

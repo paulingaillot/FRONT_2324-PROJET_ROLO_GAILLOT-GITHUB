@@ -20,12 +20,14 @@ import { ReactiveFormsModule } from '@angular/forms';
 import {SharedComponentsModule } from './shared-components/shared-components.module';
 import { HeaderComponent } from './shared-components/header/header.component';
 import { FooterComponent } from './shared-components/footer/footer.component';
+import { EditProfileComponent } from './user/edit-profile/edit-profile.component';
 
 export const routes: Routes = [
   { path: 'event', component: EventListComponent, canActivate: mapToCanActivate([AuthGuardService])},
   { path: 'event-details/:id', component: EventDetailsComponent, canActivate: mapToCanActivate([AuthGuardService])},
   { path: 'create-event', component: EventCreateComponent, canActivate: mapToCanActivate([AuthGuardService])},
   { path: 'account', component: UserComponent, canActivate: mapToCanActivate([AuthGuardService])},
+  { path: 'account/edit', component: EditProfileComponent, canActivate: mapToCanActivate([AuthGuardService])},
   { path: 'tchat', component: TchatComponent, canActivate: mapToCanActivate([AuthGuardService])},
   { path: 'register', component: ConnectRegisterComponent},
   { path: 'login', component: ConnectLoginComponent},
@@ -45,7 +47,8 @@ export const routes: Routes = [
     ConnectLoginComponent,
     ConnectRegisterComponent,
     TchatComponent,
-    UserComponent
+    UserComponent,
+    EditProfileComponent
   ],
   imports: [
     BrowserModule,
