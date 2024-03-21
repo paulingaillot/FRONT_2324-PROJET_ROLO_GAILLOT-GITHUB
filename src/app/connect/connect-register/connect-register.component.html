@@ -1,60 +1,92 @@
+<!DOCTYPE html>
 <html>
-    <app-header></app-header>
-    <br>
-    <div class="container card bg-light ">
-        <img src="https://cdn-icons-png.flaticon.com/512/5087/5087579.png" alt="Register Icon" class="m-auto" style="width: 8rem; height: 8rem; ">
-        
-        <form (ngSubmit)="onSubmit()" #registerForm="ngForm">
-            <div class="row">
-                <div class="col">
-                    <div class="form-group">
-                        <label for="username">Username:</label>
-                        <input type="text" class="form-control" id="username" name="username" [(ngModel)]="formData.username" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="password">Mot de passe:</label>
-                        <input type="password" class="form-control" id="password" name="password" [(ngModel)]="formData.password" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="repeatPassword">Confirme le mot de passe:</label>
-                        <input type="password" class="form-control" id="repeatPassword" name="repeatPassword" [(ngModel)]="formData.repeatPassword" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="mail">Email:</label>
-                        <input type="email" class="form-control" id="mail" name="mail" [(ngModel)]="formData.mail" required>
+<app-header></app-header>
+<br>
+<div class="container card bg-light">
+    <img src="https://cdn-icons-png.flaticon.com/512/5087/5087579.png" alt="Register Icon" class="m-auto" style="width: 8rem; height: 8rem; ">
+
+    <form (ngSubmit)="onSubmit()" #registerForm="ngForm" novalidate>
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+                    <label for="username">Nom d'utilisateur:</label>
+                    <input type="text" class="form-control" id="username" name="username" [(ngModel)]="formData.username" required #usernameField="ngModel">
+                    <div *ngIf="usernameField.invalid && (usernameField.dirty || usernameField.touched)">
+                        <div class="error-message" *ngIf="usernameField.errors?.['required']">Le nom d'utilisateur est requis.</div>
                     </div>
                 </div>
-                <div class="col">
-                    <div class="form-group">
-                        <label for="name">Prénom:</label>
-                        <input type="text" class="form-control" id="name" name="name" [(ngModel)]="formData.name" required>
+
+                <div class="form-group">
+                    <label for="password">Mot de passe:</label>
+                    <input type="password" class="form-control" id="password" name="password" [(ngModel)]="formData.password" required minlength="6" #passwordField="ngModel">
+                    <div *ngIf="passwordField.invalid && (passwordField.dirty || passwordField.touched)">
+                        <div class="error-message" *ngIf="passwordField.errors?.['required']">Le mot de passe est requis.</div>
+                        <div class="error-message" *ngIf="passwordField.errors?.['minlength']">Le mot de passe doit comporter au moins 6 caractères.</div>
                     </div>
-                    
-                    <div class="form-group">
-                        <label for="surname">Nom:</label>
-                        <input type="text" class="form-control" id="surname" name="surname" [(ngModel)]="formData.surname" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="repeatPassword">Confirmer le mot de passe:</label>
+                    <input type="password" class="form-control" id="repeatPassword" name="repeatPassword" [(ngModel)]="formData.repeatPassword" required #repeatPasswordField="ngModel">
+                    <div *ngIf="repeatPasswordField.invalid && (repeatPasswordField.dirty || repeatPasswordField.touched)">
+                      <div class="error-message" *ngIf="repeatPasswordField.errors?.['required']">Veuillez confirmer le mot de passe.</div>
+                      <div class="error-message" *ngIf="formData.password !== formData.repeatPassword">Les mots de passe ne correspondent pas.</div>
                     </div>
-                    
-                    <div class="form-group">
-                        <label for="born">Date de naissance:</label>
-                        <input type="date" class="form-control" id="born" name="born" [(ngModel)]="formData.born" required>
+                  </div>
+
+                <div class="form-group">
+                    <label for="mail">Email:</label>
+                    <input type="email" class="form-control" id="mail" name="mail" [(ngModel)]="formData.mail" required pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}" #mailField="ngModel">
+                    <div *ngIf="mailField.invalid && (mailField.dirty || mailField.touched)">
+                        <div class="error-message" *ngIf="mailField.errors?.['required']">L'adresse email est requise.</div>
+                        <div class="error-message" *ngIf="mailField.errors?.['pattern']">L'adresse email doit être au format valide.</div>
                     </div>
                 </div>
             </div>
-            <br>
-            <div class="form-group">
-                <label for="picture">Image de profil: </label>
-                <input type="file" class="form-control-file" id="picture" name="picture" (change)="onFileChange($event)" accept="image/*" required>
+
+            <div class="col">
+                <div class="form-group">
+                    <label for="name">Prénom:</label>
+                    <input type="text" class="form-control" id="name" name="name" [(ngModel)]="formData.name" required #nameField="ngModel">
+                    <div *ngIf="nameField.invalid && (nameField.dirty || nameField.touched)">
+                        <div class="error-message" *ngIf="nameField.errors?.['required']">Le prénom est requis.</div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="surname">Nom:</label>
+                    <input type="text" class="form-control" id="surname" name="surname" [(ngModel)]="formData.surname" required #surnameField="ngModel">
+                    <div *ngIf="surnameField.invalid && (surnameField.dirty || surnameField.touched)">
+                        <div class="error-message" *ngIf="surnameField.errors?.['required']">Le nom est requis.</div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="born">Date de naissance:</label>
+                    <input type="date" class="form-control" id="born" name="born" [(ngModel)]="formData.born" required #bornField="ngModel">
+                    <div *ngIf="bornField.invalid && (bornField.dirty || bornField.touched)">
+                        <div class="error-message" *ngIf="bornField.errors?.['required']">La date de naissance est requise.</div>
+                        
+                    </div>
+                </div>
             </div>
-            <br>
-            <div class="text-center">
-                <button type="submit" class="btn  " style="color:white;background-color:#3A5A40;" [disabled]="!registerForm.valid">Créer le compte </button>
+        </div>
+        <br>
+
+        <div class="form-group">
+            <label for="picture">Image de profil:</label>
+            <input type="file" class="form-control-file" id="picture" name="picture" (change)="onFileChange($event)" accept="image/*" required #pictureField="ngModel" ngModel>
+            <div *ngIf="pictureField.invalid && (pictureField.dirty || pictureField.touched)">
+                <div class="error-message" *ngIf="pictureField.errors?.['required']">Une image de profil est requise.</div>
             </div>
-            <br>
-        </form>
-    </div>
-    <br>
+        </div>
+        <br>
+        <div class="error-message" *ngIf="errorMessage">{{ errorMessage }}</div>
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary" [disabled]="!registerForm.valid">Créer le compte</button>
+        </div>
+        <br>
+    </form>
+</div>
+<br>
 </html>

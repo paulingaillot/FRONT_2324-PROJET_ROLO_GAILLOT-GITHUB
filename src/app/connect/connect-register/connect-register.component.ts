@@ -12,6 +12,7 @@ import { Buffer } from 'buffer';
 })
 export class ConnectRegisterComponent {
   formData: any = {};
+  errorMessage: string = '';
 
   constructor(private authService: AuthService, private http: HttpClient, private router: Router) { }
 
@@ -21,6 +22,12 @@ export class ConnectRegisterComponent {
 
     if (this.formData.password !== this.formData.repeatPassword) {
       // Si les mots de passe ne correspondent pas, ne pas soumettre le formulaire
+      this.errorMessage = "Les mots de passe ne correspondent pas.";
+      return;
+    }
+
+    if (!this.isDateOfBirthValid()) {
+      this.errorMessage = "La date de naissance doit être antérieure à la date actuelle.";
       return;
     }
 
@@ -30,6 +37,7 @@ export class ConnectRegisterComponent {
     console.log(this.formData);
     this.http.post<any>('http://localhost:3000/users/addUser', this.formData)
     .subscribe(response => {
+      this.errorMessage = "";
       console.log("L'user est inscrit et connecté")
       console.log(response)
       this.authService.login(new User(response));
@@ -39,7 +47,11 @@ export class ConnectRegisterComponent {
     });
     // Vous pouvez envoyer les données du formulaire à un service pour l'inscription
   }
-
+  isDateOfBirthValid(): boolean {
+    const selectedDate = new Date(this.formData.born);
+    const currentDate = new Date();
+    return selectedDate <= currentDate;
+  }
   onFileChange(event: any) {
     if (event.target.files.length > 0) {
       const file = event.target.files[0];

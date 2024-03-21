@@ -7,6 +7,7 @@
 <head>
     <title>Connexion</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
 </head>
 <body>
     
@@ -15,12 +16,21 @@
         <form #loginForm="ngForm" (ngSubmit)="checkPassword(loginForm.value)">
             <div class="form-group">
                 <label for="username">Nom d'utilisateur:</label>
-                <input type="text" id="username" name="username" class="form-control" [(ngModel)]="username" required>
+                <input type="text" id="username" name="username" class="form-control" [(ngModel)]="username" required #usernameField="ngModel">
+                <div *ngIf="usernameField.invalid && (usernameField.dirty || usernameField.touched)">
+                    <div class="error-message" *ngIf="usernameField.errors?.['required']">Le nom d'utilisateur est requis.</div>
+                </div>
             </div>
             <div class="form-group">
                 <label for="password">Mot de passe:</label>
-                <input type="password" id="password" name="password" class="form-control" [(ngModel)]="password" required>
+                <input type="password" id="password" name="password" class="form-control" [(ngModel)]="password" required minlength="6" #passwordField="ngModel">
+                <div *ngIf="passwordField.invalid && (passwordField.dirty || passwordField.touched)">
+                    <div class="error-message" *ngIf="passwordField.errors?.['required']">Le mot de passe est requis.</div>
+                    <div class="error-message" *ngIf="passwordField.errors?.['minlength']">Le mot de passe doit comporter au moins 6 caractères.</div>
+                </div>
             </div>
+            <div *ngIf="loginError" class="error-message">{{ loginError }}</div>
+
             <div class="text-center"> <!-- Center the button and the paragraph -->
                 <button type="submit" class="btn btn-primary" [disabled]="!loginForm.valid">Se connecter</button>
                 <div>Si vous n'avez pas encore de compte : <button type="button" class="btn btn-link" (click)="navigateToRegister()">Register</button></div>
