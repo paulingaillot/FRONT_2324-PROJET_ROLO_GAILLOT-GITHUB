@@ -2,10 +2,9 @@
 
 <body>
 <app-header></app-header>
+<br>
 
-
-    <div class="container">
-        <h1>Profil Client</h1>
+    <div class="container card bg-light">
         <div class="container">
             <div class="row no-gutters align-items-center">
                 <div class="col-md-4">
@@ -13,20 +12,24 @@
                 </div>
                 <div class="col-md-8">
                     <div class="card-body">
-                        <h2 class="card-title">{{user.username}}</h2>
+                        <h2 class="card-title">Profil Client</h2>
                         <hr>
+                        <p class="card-text"><strong>Username :</strong> {{user.username}}</p>
                         <p class="card-text"><strong>Prénom :</strong> {{user.name}}</p>
                         <p class="card-text"><strong>Nom :</strong> {{user.surname}}</p>
                         <p class="card-text"><strong>Adresse mail :</strong> {{user.mail}}</p>
-                        <p class="card-text"><strong>Date de naissance :</strong> {{user.born}}</p>
+                        <p class="card-text"><strong>Date de naissance :</strong> {{user.born | date: 'medium' : 'UTC' }}</p>
                     </div>
                 </div>
             </div>
             </div>
           <hr><hr>
       </div>
-
-      <button class="btn btn-primary" (click)="edit()">Modifier le profil</button>
+      <br>
+      <div class="text-center">
+        <button class="btn" style= "background-color: #A3B18A;" (click)="edit()">Modifier le profil</button>
+      </div>
+      
 
     </body>
 </html>

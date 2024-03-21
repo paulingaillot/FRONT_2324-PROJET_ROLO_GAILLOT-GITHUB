@@ -1,10 +1,9 @@
-<p>edit-profile works!</p>
 <html>
     <body>
         <app-header></app-header>
 
-
-
+        <br>
+        <div class="container card bg-light">
         <form (ngSubmit)="onSubmit()" #userForm="ngForm">
             <div class="form-group">
               <label for="firstName">Prénom</label>
@@ -40,8 +39,9 @@
               <label for="image">Image de profil</label>
               <input type="file" id="image" name="image" class="form-control" (change)="onFileChange($event)" required>
             </div>
-        
+            <br>
             <button type="submit" class="btn btn-primary" [disabled]="!userForm.valid">Mettre à jour le profil</button>
-          </form>
+            
+          </form></div>
     </body>
 </html>>

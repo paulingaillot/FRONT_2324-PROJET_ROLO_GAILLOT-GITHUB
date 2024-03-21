@@ -19,7 +19,7 @@ export class EditProfileComponent {
   onSubmit() {  
     console.log(this.profileForm);
   
-    this.http.put<any>('http://localhost:3000/users/'+this.authService.loadUser()._id, this.profileForm)
+    this.http.put<any>('https://back-2324-projet-rolo-gaillot-github.onrender.com/users/'+this.authService.loadUser()._id, this.profileForm)
     .subscribe(response => {
       this.authService.login(response);
       this.router.navigate(['/'])

@@ -30,7 +30,7 @@ export class EventUpdateComponent implements OnInit {
       
     });
 
-    this.http.get<any>(`http://localhost:3000/events/${eventId}`)
+    this.http.get<any>(`https://back-2324-projet-rolo-gaillot-github.onrender.com/events/${eventId}`)
       .subscribe(event => {
         this.eventForm.patchValue({
           name: event.name,
@@ -48,7 +48,7 @@ export class EventUpdateComponent implements OnInit {
     console.log(this.eventForm.value);
     
     let eventId = this.route.snapshot.paramMap.get('id');
-    this.http.put<any>(`http://localhost:3000/events/${eventId}`, this.eventForm.value)
+    this.http.put<any>(`https://back-2324-projet-rolo-gaillot-github.onrender.com/events/${eventId}`, this.eventForm.value)
       .subscribe(response => {
         console.log("L'event a été mis à jour")
         this.router.navigate(['/event-details',eventId])
