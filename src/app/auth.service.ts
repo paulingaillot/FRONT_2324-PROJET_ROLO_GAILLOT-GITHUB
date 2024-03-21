@@ -22,6 +22,7 @@ export class AuthService {
     if (userJson) {
       const userObj = JSON.parse(userJson);
       const user = new User(
+        userObj._id,
         userObj.name,
         userObj.surname,
         userObj.username,
@@ -29,8 +30,7 @@ export class AuthService {
         userObj.picture,
         userObj.password,
         new Date(userObj.born),
-        userObj.is_admin,
-        userObj.favorites
+        userObj.is_admin
       );
       return user;
     }

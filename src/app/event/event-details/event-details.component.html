@@ -21,5 +21,15 @@
         </div>
       </div>
     </div>
+    <!-- Render list of users who favorited the event -->
+  <h3>List of users who favorited this event:</h3>
+  <ul>
+    <li *ngFor="let user of userDetails | keyvalue">
+      {{ user.value.username }} <!-- Assuming 'name' is a property of the user object -->
+    </li>
+  </ul>
+
+  <!-- Add button to add event to favorites -->
+  <button (click)="addToFavourite()">Add to Favorites</button>
   </div>
 </html>

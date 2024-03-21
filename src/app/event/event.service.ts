@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { throwError, Observable, catchError, tap } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Event } from '../models/Event';
+import { User } from '../models/User';
 
 @Injectable({
   providedIn: 'root'
@@ -18,11 +19,36 @@ export class EventService {
     catchError(this.handleError)
     );
     }
+  getUserById(userId: string): Observable<User> {
+      return this.http.get<any>(`http://localhost:3000/users/${userId}`).pipe(
+        catchError(this.handleError)
+      );
+    }
   getEventById(eventId: any): Observable<Event> {
       return this.http.get<Event>(`http://localhost:3000/events/${eventId}`).pipe(
       tap(data => console.log('All: ', JSON.stringify(data))),
       catchError(this.handleError)
       );
+      }
+  getFavoritesByEvent(eventId: any): Observable<any[]> {
+        return this.http.get<any[]>(`http://localhost:3000/favorites/event/${eventId}`).pipe(
+          tap(data => console.log('Favorites by event: ', data)),
+          catchError(this.handleError)
+        );
+      }
+    
+  getFavoritesByUser(userId: any): Observable<any[]> {
+      return this.http.get<any[]>(`http://localhost:3000/favorites/user/${userId}`).pipe(
+        tap(data => console.log('Favorites by user: ', data)),
+        catchError(this.handleError)
+      );
+    }
+  addToFavorites(eventId: any,userId: string): Observable<any> {
+          
+        return this.http.post<any>('http://localhost:3000/favorites', { userId, eventId }).pipe(
+          tap(data => console.log('Event added to favorites:', data)),
+          catchError(this.handleError)
+        );
       }
   // Method to filter events by name
   filterByName(eventName: string): Observable<Event[]> {

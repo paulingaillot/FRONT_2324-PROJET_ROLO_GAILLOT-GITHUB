@@ -1,4 +1,5 @@
 class User {
+    _id : string;
     name: string;
     surname: string;
     username: string;
@@ -7,9 +8,10 @@ class User {
     password: string;
     born: Date;
     is_admin: boolean;
-    favorites: string[]; // assuming 'Event' is a string ID
+    
 
     constructor(
+      _id="",
       name="",
       surname="",
       username="",
@@ -18,9 +20,10 @@ class User {
       password="",
       born=new Date(),
       is_admin = false,
-      favorites = []
+      
     )
      {
+      this._id= _id,
       this.name = name;
       this.surname = surname;
       this.username = username;
@@ -29,7 +32,6 @@ class User {
       this.password = password;
       this.born = born;
       this.is_admin = is_admin;
-      this.favorites = favorites;
     }
   }
 
