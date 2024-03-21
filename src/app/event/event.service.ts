@@ -50,6 +50,14 @@ export class EventService {
           catchError(this.handleError)
         );
       }
+  deleteFromFavorites(eventId: any, userId: string): Observable<any> {
+    const url = `http://localhost:3000/favorites`;
+    const body = { userId, eventId };
+    return this.http.delete<any>(url, { body }).pipe(
+      tap(data => console.log('Event deleted from favorites:', data)),
+      catchError(this.handleError)
+    );
+  }
   // Method to filter events by name
   filterByName(eventName: string): Observable<Event[]> {
     return this.http.get<Event[]>(`http://localhost:3000/events/filter/name/${eventName}`).pipe(
@@ -105,6 +113,8 @@ export class EventService {
       catchError(this.handleError)
     );
   }
+
+  
   private handleError(err:any) {
       console.log(err);
       return throwError(err);

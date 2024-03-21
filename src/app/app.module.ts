@@ -29,6 +29,7 @@ export const routes: Routes = [
   { path: 'account', component: UserComponent, canActivate: mapToCanActivate([AuthGuardService])},
   { path: 'account/edit', component: EditProfileComponent, canActivate: mapToCanActivate([AuthGuardService])},
   { path: 'tchat', component: TchatComponent, canActivate: mapToCanActivate([AuthGuardService])},
+  { path: 'tchat/:username', component: TchatComponent, canActivate: mapToCanActivate([AuthGuardService])},
   { path: 'register', component: ConnectRegisterComponent},
   { path: 'login', component: ConnectLoginComponent},
   { path: '', redirectTo: 'event', pathMatch: 'full'},
