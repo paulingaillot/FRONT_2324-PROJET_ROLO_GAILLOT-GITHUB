@@ -25,7 +25,8 @@ export class EditProfileComponent {
           this.authService.login(this.authService.getJWTToken(), this.authService.getRefreshToken());
           this.router.navigate(['/'])
         }, error => {
-      console.error("Echec");
+          console.error("Echec");
+        });
     });
   }
 
