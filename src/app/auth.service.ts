@@ -17,9 +17,13 @@ export class AuthService {
     localStorage.setItem('refreshToken', refreshToken);
   }
 
+  saveJWTToken(jwtToken: string) { 
+    localStorage.setItem('jwtToken', jwtToken);
+  }
+
   loadUser(): Observable<User> {
     const headers = { 'Authorization': 'Bearer ' + this.getJWTToken() };
-    return this.http.get<User>('http://localhost:3000/users/get', { headers }).pipe(
+    return this.http.get<User>('https://back-2324-projet-rolo-gaillot-github.onrender.com/users/get', { headers }).pipe(
       map(userObj => {
         const user = new User(
           userObj._id,
@@ -57,10 +61,8 @@ export class AuthService {
   }
 
   isLoggedIn(): Observable<boolean> {
-    console.log(this.getJWTToken())
-    const headers = { 'Authorization': 'Bearer ' + this.getJWTToken() };
-    console.log("il va jusque la")
-    return this.http.get<any>('http://localhost:3000/users/isAuth', { headers })
+    console.log("il va jusque laaa")
+    return this.http.get<any>('https://back-2324-projet-rolo-gaillot-github.onrender.com/users/isAuth')
       .pipe(
         tap(data => console.log('All: ', JSON.stringify(data))),
         map(response => true),

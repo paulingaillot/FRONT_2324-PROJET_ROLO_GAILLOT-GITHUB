@@ -19,6 +19,7 @@ export class ConnectLoginComponent {
     this.http.post<any>('https://back-2324-projet-rolo-gaillot-github.onrender.com/users/login', formValues)
       .subscribe(response => {
         console.log("L'utilisateur est connecté")
+        console.log(response)
         this.authService.login(response.accessToken, response.refreshToken);
         this.router.navigate(['/']);
       }, error => {
