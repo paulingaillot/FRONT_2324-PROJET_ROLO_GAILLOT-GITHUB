@@ -20,13 +20,12 @@ export class EditProfileComponent {
     console.log(this.profileForm);
   
     this.authService.loadUser().subscribe(user => {
-      this.http.put<any>('http://localhost:3000/users/' + user._id, this.profileForm)
+      this.http.put<any>('https://back-2324-projet-rolo-gaillot-github.onrender.com/users/' + user._id, this.profileForm)
         .subscribe(response => {
           this.authService.login(this.authService.getJWTToken(), this.authService.getRefreshToken());
           this.router.navigate(['/'])
         }, error => {
-          console.error("Echec");
-        });
+      console.error("Echec");
     });
   }
 

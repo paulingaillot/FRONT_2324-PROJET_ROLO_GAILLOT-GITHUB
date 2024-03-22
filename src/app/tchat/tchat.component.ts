@@ -27,7 +27,7 @@ export class TchatComponent implements OnInit{
     this.authService.loadUser().subscribe(user => {
       this.user = user;
 
-      this.socket = io('http://localhost:3000', {
+      this.socket = io('https://back-2324-projet-rolo-gaillot-github.onrender.com', {
         query: {
           username:  this.user.username
         }
@@ -73,7 +73,7 @@ export class TchatComponent implements OnInit{
   }
 
   getUsers(): Observable<userData[]> {
-    return this.http.get<userData[]>('http://localhost:3000/users/all');
+    return this.http.get<userData[]>('https://back-2324-projet-rolo-gaillot-github.onrender.com/users/all');
   }
   
   selectUser(username: string): void {
@@ -90,7 +90,7 @@ export class TchatComponent implements OnInit{
   restoreHistory() {
     console.log("test de fonctionnement")
     console.log(this.roomName)
-    return this.http.get<any>(`http://localhost:3000/tchat/restore/${this.roomName}`).subscribe(data => {
+    return this.http.get<any>(`https://back-2324-projet-rolo-gaillot-github.onrender.com/tchat/restore/${this.roomName}`).subscribe(data => {
         console.log("Allo");
         console.log(data)
         var messagesTextarea = document.getElementById("messages");
@@ -123,7 +123,7 @@ export class TchatComponent implements OnInit{
   }
 
   getImage(username: string): Observable<any> {
-    return this.http.get<any>('http://localhost:3000/users/userPicture/' + username)
+    return this.http.get<any>('https://back-2324-projet-rolo-gaillot-github.onrender.com/users/userPicture/' + username)
       .pipe(map((response: any) => response.user));
   }
 

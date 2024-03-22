@@ -28,6 +28,7 @@ export const routes: Routes = [
   { path: 'event', component: EventListComponent, canActivate: mapToCanActivate([AuthGuardService])},
   { path: 'event-details/:id', component: EventDetailsComponent, canActivate: mapToCanActivate([AuthGuardService])},
   { path: 'create-event', component: EventCreateComponent, canActivate: mapToCanActivate([AuthGuardService])},
+  { path: 'edit-event/:id', component: EventUpdateComponent, canActivate: mapToCanActivate([AuthGuardService])},
   { path: 'account', component: UserComponent, canActivate: mapToCanActivate([AuthGuardService])},
   { path: 'account/edit', component: EditProfileComponent, canActivate: mapToCanActivate([AuthGuardService])},
   { path: 'tchat', component: TchatComponent, canActivate: mapToCanActivate([AuthGuardService])},

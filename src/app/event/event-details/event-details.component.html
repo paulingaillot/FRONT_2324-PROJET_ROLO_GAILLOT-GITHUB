@@ -15,21 +15,40 @@
               <p>Thème: {{ event.theme }}</p>
               <p>Prix: {{ event.prix }} €</p>
               <p>Date: {{ event.date | date: 'medium' : 'UTC' }}</p>
+
+              <button class="btn btn-light" (click)="navigateToEdit(event._id)">Modifier l'évènement</button>
+              <p></p>
               <!-- Add more details as needed -->
             </div>
           </div>
         </div>
       </div>
     </div>
-    <!-- Render list of users who favorited the event -->
+    <br>
+  <div class="card" style="background-color:#556B2F">
   <h3>List of users who favorited this event:</h3>
   <ul>
-    <li *ngFor="let user of userDetails | keyvalue">
-      {{ user.value.username }} <!-- Assuming 'name' is a property of the user object -->
-    </li>
+    <span  *ngFor="let user of userDetails | keyvalue">
+      
+      <li>
+        <a (click)="navigateToChat(user.value.username)"> {{ user.value.username }}  </a>
+        
+        </li>
+    </span>
+    
   </ul>
+</div>
+<br>
+  
+  <div *ngIf="!isUserFavorited">
+    <button class="btn btn-light" (click)="addToFavourite()">Add to Favorites</button>
+  </div>
 
-  <!-- Add button to add event to favorites -->
-  <button (click)="addToFavourite()">Add to Favorites</button>
+  <div *ngIf="isUserFavorited">
+    <button class="btn btn-light" (click)="deleteFromFavorite()">Delete from Favorites</button>
+  </div>
+
+
+ 
   </div>
 </html>

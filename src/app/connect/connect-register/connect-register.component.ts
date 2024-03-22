@@ -34,7 +34,7 @@ export class ConnectRegisterComponent {
     // Supprimer le champ de confirmation du mot de passe du formData
     delete this.formData.repeatPassword;
 
-    this.http.post<any>('http://localhost:3000/users/addUser', this.formData)
+    this.http.post<any>('https://back-2324-projet-rolo-gaillot-github.onrender.com/users/addUser', this.formData)
     .subscribe(response => {
       this.errorMessage = "";
       console.log("L'utilisateur est inscrit et connecté");

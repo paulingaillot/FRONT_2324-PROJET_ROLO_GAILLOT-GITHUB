@@ -17,6 +17,7 @@ export class EventDetailsComponent implements OnInit {
   users: any[]; 
   user_actual: string;
   userDetails: { [userId: string]: any } = {};
+  isUserFavorited: boolean = false;
   constructor(private eventService: EventService, 
     private authService: AuthService, 
     private http: HttpClient, 
@@ -30,11 +31,9 @@ export class EventDetailsComponent implements OnInit {
      ngOnInit(): void {
       const eventId = this.route.snapshot.paramMap.get('id');
       
-      // Fetch event details
       this.eventService.getEventById(eventId).subscribe(event => {
         this.event = event;
   
-        // After fetching the event, fetch favorites by event ID
         this.eventService.getFavoritesByEvent(eventId).subscribe(favorites => {
           this.favorites = favorites;
           this.favorites.forEach(favorite => {
@@ -43,6 +42,9 @@ export class EventDetailsComponent implements OnInit {
               
               this.eventService.getUserById(userId).subscribe(user => {
                 this.userDetails[userId] = user;
+                if (userId === this.user_actual) {
+                  this.isUserFavorited = true;
+                }
               });
             });
           });
@@ -53,12 +55,28 @@ export class EventDetailsComponent implements OnInit {
 navigateTo(url: string) {
 this.router.navigateByUrl(url);
 }
-
+navigateToChat(username: string){
+  this.router.navigate(['/tchat', username])
+}
+navigateToEdit(event_id: String){
+  this.router.navigate(['/edit-event', event_id])
+}
 addToFavourite(): void {
   const eventId = this.route.snapshot.paramMap.get('id');
   this.eventService.addToFavorites(eventId, this.user_actual).subscribe(response => {
-    this.eventService.getFavoritesByEvent(eventId).subscribe(favorites => {
-      this.favorites = favorites;
+    // Reload the page
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+      this.router.navigate(['/event-details', eventId]);
+    });
+  });
+}
+
+deleteFromFavorite(): void {
+  const eventId = this.route.snapshot.paramMap.get('id');
+  this.eventService.deleteFromFavorites(eventId, this.user_actual).subscribe(response => {
+    // Reload the page
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+      this.router.navigate(['/event-details', eventId]);
     });
   });
 }
