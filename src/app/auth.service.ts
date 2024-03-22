@@ -56,7 +56,7 @@ export class AuthService {
   }
 
   getRefreshToken():string {
-    if(localStorage.getItem('jwtToken')) return localStorage.getItem('jwtToken')!;
+    if(localStorage.getItem('refreshToken')) return localStorage.getItem('refreshToken')!;
     else return "";
   }
 
