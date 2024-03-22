@@ -61,10 +61,8 @@ export class AuthService {
   }
 
   isLoggedIn(): Observable<boolean> {
-    console.log("il va jusque laaa")
     return this.http.get<any>('https://back-2324-projet-rolo-gaillot-github.onrender.com/users/isAuth')
       .pipe(
-        tap(data => console.log('All: ', JSON.stringify(data))),
         map(response => true),
         catchError(error => of(false))
       );

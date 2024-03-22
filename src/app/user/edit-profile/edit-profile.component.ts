@@ -23,14 +23,12 @@ export class EditProfileComponent {
   });}
 
 
-  onSubmit() {  
-    console.log(this.profileForm);
-  
+  onSubmit() {    
     this.authService.loadUser().subscribe(user => {
       this.http.put<any>('https://back-2324-projet-rolo-gaillot-github.onrender.com/users/' + user._id, this.profileForm)
         .subscribe(response => {
           this.authService.login(this.authService.getJWTToken(), this.authService.getRefreshToken());
-          this.router.navigate(['/'])
+          this.router.navigate(['/account'])
         }, error => {
           console.error("Echec");
         });

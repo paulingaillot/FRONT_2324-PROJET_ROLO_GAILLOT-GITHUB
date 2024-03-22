@@ -27,7 +27,6 @@ export class EventListComponent implements OnInit {
                }
 
   ngOnInit(): void {
-    console.log('test');
     this.eventService.getEvents().subscribe(events2 => {
       this.events = events2.map(event => event);
       this.calculateMaxPrice();

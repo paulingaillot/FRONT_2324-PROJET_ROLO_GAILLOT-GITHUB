@@ -38,7 +38,6 @@ export class ConnectRegisterComponent {
     .subscribe(response => {
       this.errorMessage = "";
       console.log("L'utilisateur est inscrit et connecté");
-      console.log(response);
       this.authService.login(response.accessToken, response.refreshToken);
       this.router.navigate(['/']);
     }, error => {

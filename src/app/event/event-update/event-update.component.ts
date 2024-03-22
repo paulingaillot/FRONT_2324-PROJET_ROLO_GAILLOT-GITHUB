@@ -43,10 +43,7 @@ export class EventUpdateComponent implements OnInit {
 
  
 
-  onSubmit() {
-
-    console.log(this.eventForm.value);
-    
+  onSubmit() {    
     let eventId = this.route.snapshot.paramMap.get('id');
     this.http.put<any>(`https://back-2324-projet-rolo-gaillot-github.onrender.com/events/${eventId}`, this.eventForm.value)
       .subscribe(response => {

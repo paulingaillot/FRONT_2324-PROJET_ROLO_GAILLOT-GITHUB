@@ -48,7 +48,6 @@ export class EventCreateComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.eventForm.value);
     this.http.post<any>('https://back-2324-projet-rolo-gaillot-github.onrender.com/events/', this.eventForm.value)
     .subscribe(response => {
       console.log("L'event a été créé")

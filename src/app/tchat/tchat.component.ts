@@ -34,11 +34,13 @@ export class TchatComponent implements OnInit{
       });
 
       this.getMessages().subscribe(data => {
-        console.log(`message reçcu : ` + data.message);
           // Mettez à jour le contenu du textarea avec le message reçu
           var messagesTextarea = document.getElementById("messages");
           if (messagesTextarea) {
-          messagesTextarea.innerHTML += "<b>" + data.from + "</b> : " + data.message + '<br>';
+            let timestamp = Date.now(); // Remplacez ceci par votre timestamp en millisecondes
+            let date = new Date(timestamp);
+            let formattedDate = ('0' + date.getDate()).slice(-2) + '-' + ('0' + (date.getMonth()+1)).slice(-2) + ' ' + ('0' + date.getHours()).slice(-2) + ':' + ('0' + date.getMinutes()).slice(-2);
+          messagesTextarea.innerHTML += "["+formattedDate +"] <b>" + data.from + "</b> : " + data.message + '<br>';
   
           // Faites défiler le textarea vers le bas pour afficher les nouveaux messages
           messagesTextarea.scrollTop = messagesTextarea.scrollHeight;
@@ -61,6 +63,7 @@ export class TchatComponent implements OnInit{
   }
 
   sendMessage(): void {
+    if(this.roomName === undefined) return;
     const message = (document.getElementById('message') as HTMLInputElement).value;
     this.socket.emit('message', this.roomName, message);
     (document.getElementById('message') as HTMLInputElement).value = "";
@@ -78,7 +81,6 @@ export class TchatComponent implements OnInit{
   
   selectUser(username: string): void {
     var roomName = this.getRoomName( this.user.username, username);
-    console.log(roomName)
     this.socket.emit('leave room', this.roomName);
     this.socket.emit('join room', roomName);
     this.roomName = roomName;
@@ -88,16 +90,13 @@ export class TchatComponent implements OnInit{
   }
   
   restoreHistory() {
-    console.log("test de fonctionnement")
-    console.log(this.roomName)
     return this.http.get<any>(`https://back-2324-projet-rolo-gaillot-github.onrender.com/tchat/restore/${this.roomName}`).subscribe(data => {
-        console.log("Allo");
-        console.log(data)
         var messagesTextarea = document.getElementById("messages");
         if (messagesTextarea) {
           data.messages.forEach((message2: any) => {
-            console.log(message2)
-            if (messagesTextarea) messagesTextarea.innerHTML += "<b>" + message2.sender + "</b> : " + message2.content + '<br>';
+            let date = new Date(message2.timestamp);
+            let formattedDate = ('0' + date.getDate()).slice(-2) + '-' + ('0' + (date.getMonth()+1)).slice(-2) + ' ' + ('0' + date.getHours()).slice(-2) + ':' + ('0' + date.getMinutes()).slice(-2);
+            if (messagesTextarea) messagesTextarea.innerHTML += "["+formattedDate+ "] <b>" + message2.sender + "</b> : " + message2.content + '<br>';
           });
       
           // Scroll the textarea down to display the new messages
@@ -117,8 +116,6 @@ export class TchatComponent implements OnInit{
   }
 
   private handleError(err:any) {
-    console.log("ERREURR")
-    console.log(err);
     return throwError(err);
   }
 
