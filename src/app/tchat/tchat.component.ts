@@ -33,6 +33,8 @@ export class TchatComponent implements OnInit{
         }
       });
 
+      if(this.route.snapshot.paramMap.get('username') !== null) this.selectUser(this.route.snapshot.paramMap.get('username')!);
+
       this.getMessages().subscribe(data => {
           // Mettez à jour le contenu du textarea avec le message reçu
           var messagesTextarea = document.getElementById("messages");
@@ -52,7 +54,6 @@ export class TchatComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    if(this.route.snapshot.paramMap.get('username') !== null) this.selectUser(this.route.snapshot.paramMap.get('username')!);
 
     this.getUsers().subscribe(data => {
       data.forEach((user: userData) => {

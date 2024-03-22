@@ -20,6 +20,10 @@ export class HeaderComponent implements OnInit{
     });
   }
 
+  Accueil() {
+    this.router.navigate(['/']);
+  }
+
   logout() {
     this.authService.logout(); // Appel de la fonction disconnect du service AuthService
   }
