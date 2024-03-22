@@ -4,7 +4,9 @@
   </head>
 <app-header></app-header>
 <br>
+
 <div class="container" style="height: 500px;overflow-y:scroll;">
+  <h4 style="color:#3B71CA;">Bienvenue {{user_actual}},</h4>
   <div class="table-wrapper" style="position: relative; height: 500px;">
     <div class="row mb-3">
       <div class="form-outline" style="width: 8rem;">
@@ -16,20 +18,33 @@
         <label class="form-label" for="maxPriceInput">Max Price</label>
     </div>
     <div class="col">
-      <!-- Button to trigger filtering by price range -->
+      
       <button class="btn btn-sm" style="background-color:#A3B18A;" (click)="filterByPrice(selectedMinPrice, selectedMaxPrice)">Filtrer par prix</button>
+  </div>
+  <div class="col col-md-2"> 
+    <select id="theme" class="form-control" [(ngModel)]="selectedTheme" name="theme" placeholder="Filter by Thème" required (change)="callfilterByTheme()">
+      <option value="" disabled selected>Select a theme</option>
+      <option [value]="'sport'">Sport</option>
+      <option [value]="'culture'">Culture</option>
+      <option [value]="'festif'">Festif</option>
+      <option [value]="'pro'">Professionnel</option>
+      <option [value]="'autres'">Autres</option>
+    </select>
   </div>
   <div class="col">
     <div class="input-group">
         <div class="input-group-prepend">
-            <!-- Button wrapper for the click event -->
+           
             <button class="input-group-text"  (click)="filterByName(eventNameInput.value)">
-                <!-- Search icon -->
+
                 <i class="bi bi-search"></i>
             </button>
         </div>
-        <!-- Input field for filtering by event name -->
+    
         <input type="text" class="form-control" formControlName="name" placeholder="Filter by Name" #eventNameInput >
+    
+        
+      
     </div>
 </div>
     </div>

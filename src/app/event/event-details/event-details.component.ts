@@ -16,6 +16,7 @@ export class EventDetailsComponent implements OnInit {
   favorites: any[]; 
   users: any[]; 
   user_actual: string;
+  my_event: boolean;
   userDetails: { [userId: string]: any } = {};
   isUserFavorited: boolean = false;
   constructor(private eventService: EventService, 
@@ -33,7 +34,7 @@ export class EventDetailsComponent implements OnInit {
       
       this.eventService.getEventById(eventId).subscribe(event => {
         this.event = event;
-  
+        this.my_event = event.creator._id == this.user_actual
         this.eventService.getFavoritesByEvent(eventId).subscribe(favorites => {
           this.favorites = favorites;
           this.favorites.forEach(favorite => {

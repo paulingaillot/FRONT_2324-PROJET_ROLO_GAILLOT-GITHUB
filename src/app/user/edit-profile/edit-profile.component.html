@@ -4,6 +4,7 @@
 
         <br>
         <div class="container card bg-light">
+        <h4 class="text-center">Modifier le Profil</h4>
         <form (ngSubmit)="onSubmit()" #userForm="ngForm">
             <div class="form-group">
               <label for="firstName">Prénom</label>
@@ -22,7 +23,7 @@
         
             <div class="form-group">
               <label for="birthDate">Date de naissance</label>
-              <input type="date" id="birthDate" name="born" class="form-control" [(ngModel)]="profileForm.born" required>
+              <input type="date" id="birthDate" name="born" class="form-control" [(ngModel)]="profileForm.born " required>
             </div>
         
             <div class="form-group">

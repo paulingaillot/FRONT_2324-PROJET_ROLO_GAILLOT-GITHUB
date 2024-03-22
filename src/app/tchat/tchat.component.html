@@ -6,9 +6,9 @@
 
     <app-header></app-header>
       <div class="card">
-      <div class="d-flex m-3">
+      <div class="d-flex m-2">
           <div class="user-list">
-            <h2 class="user-list-title">Messages</h2>
+            <h2 class="user-list-title text-center" >Messages</h2>
             <hr>
             <div *ngFor="let user of users" class="user-item" (click)="selectUser(user)" >
               <div class="card" id="card2">

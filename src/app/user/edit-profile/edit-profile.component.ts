@@ -12,8 +12,15 @@ import { Buffer } from 'buffer';
 })
 export class EditProfileComponent {
   profileForm: any = {};
+  
 
-  constructor(private authService: AuthService, private http: HttpClient, private router: Router) { }
+  constructor(private authService: AuthService, private http: HttpClient, private router: Router) { this.authService.loadUser().subscribe(user => {
+    this.profileForm = {
+      name: user.name,
+      surname: user.surname,
+      mail: user.mail,
+      born: user.born,}
+  });}
 
 
   onSubmit() {  

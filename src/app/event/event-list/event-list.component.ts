@@ -15,11 +15,16 @@ export class EventListComponent implements OnInit {
   maxEventPrice = 0;
   selectedMinPrice: number = 0;
   selectedMaxPrice: number = 0;
-
+  selectedTheme: string = '';
+  user_actual: any;
   constructor(private eventService: EventService, 
               private authService: AuthService, 
               private http: HttpClient, 
-              private router: Router) { }
+              private router: Router) {
+                this.authService.loadUser().subscribe(user => {
+                  this.user_actual = user.username;
+                });
+               }
 
   ngOnInit(): void {
     console.log('test');
@@ -55,6 +60,12 @@ export class EventListComponent implements OnInit {
     this.eventService.filterByTheme(theme).subscribe(filteredEvents => {
       this.events = filteredEvents;
     });
+  }
+  callfilterByTheme(){
+    if (this.selectedTheme!= ''){
+      this.eventService;this.filterByTheme(this.selectedTheme);
+    }
+    
   }
 
   // Function to sort events by price in ascending order
