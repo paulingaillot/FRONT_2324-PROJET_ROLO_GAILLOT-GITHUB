@@ -11,12 +11,13 @@
   }
 
 #card2 {
-  background-color: #3A5A40; /* Dark blue background */
+  background-color: #E2E3E5; /* Dark blue background */
   border: 0px;
+  color:black;
 }
 
   .user-list-title {
-    color: #ffffff; /* White text */
+    color: black; /* White text */
     padding: 10px; /* Some padding */
     text-align: end; /* Center the text */
   }
@@ -41,9 +42,9 @@
   }
 
   .user-list {
-    background-color: #3A5A40; /* Dark blue background */
+    background-color: #E2E3E5; /* Dark blue background */
     flex: 1; /* Take up 1 part of the available space */
-    max-width: 200px; /* Limit the width of the user list */
+    width: 300px; /* Limit the width of the user list */
     overflow-y: auto; /* Add a scrollbar if the content is too tall */
     height: calc(100vh - 100px); /* Set the height to 100% of the viewport height minus the padding of the card */
   }
@@ -70,14 +71,14 @@
   .chat {
     padding: 25px;
     background-color: #A3B18A;
-    flex: 3; /* Take up 3 parts of the available space */
-    margin-left: 1px; /* Add some space between the user list and the chat */
+    flex: 2; 
+    margin-left: 1px; 
   }
 
   .chat-title {
-    color: #ffffff; /* White text */
-    padding: 10px; /* Some padding */
-    text-align: center; /* Center the text */
+    color: #ffffff; 
+    padding: 10px; 
+    text-align: center; 
   }
 
   @keyframes clickAnimation {

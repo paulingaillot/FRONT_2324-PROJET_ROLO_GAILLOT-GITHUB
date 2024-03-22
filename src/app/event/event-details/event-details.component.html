@@ -3,11 +3,12 @@
   <br>
   <div class="m-auto" style="max-width: 33rem;">
     <div *ngIf="event">
-      <div class="row no-gutters ">
-        <div class="col">
-          <img class="card-img-top" [src]="'data:image/jpeg;base64,' + event.image" alt="{{ event.name }}" style="width:11rem;">
+      <div class="row bg-light  " >
+        
+        <div class="col "  style="text-align:center; m-auto;">
+          <br><img class="img" [src]="'data:image/jpeg;base64,' + event.image" alt="{{ event.name }}" style="width:11rem;">
         </div>
-        <div class="col" style="background-color: #A3B18A;">
+        <div class="col" >
           <div class="card-body">
             <h3 class="card-title">{{ event.name }}</h3>
             <div class="card-text">
@@ -16,7 +17,7 @@
               <p>Prix: {{ event.prix }} €</p>
               <p>Date: {{ event.date | date: 'medium' : 'UTC' }}</p>
 
-              <button class="btn btn-light" (click)="navigateToEdit(event._id)">Modifier l'évènement</button>
+              <button *ngIf="my_event" class="btn btn-light" (click)="navigateToEdit(event._id)">Modifier l'évènement</button>
               <p></p>
               <!-- Add more details as needed -->
             </div>
@@ -25,7 +26,7 @@
       </div>
     </div>
     <br>
-  <div class="card" style="background-color:#556B2F">
+  <div class="card" style="background-color: #A3B18A;">
   <h3>List of users who favorited this event:</h3>
   <ul>
     <span  *ngFor="let user of userDetails | keyvalue">
