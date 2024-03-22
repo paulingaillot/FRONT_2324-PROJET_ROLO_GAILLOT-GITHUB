@@ -21,6 +21,8 @@ import {SharedComponentsModule } from './shared-components/shared-components.mod
 import { HeaderComponent } from './shared-components/header/header.component';
 import { FooterComponent } from './shared-components/footer/footer.component';
 import { EditProfileComponent } from './user/edit-profile/edit-profile.component';
+import { AuthInterceptor } from './auth';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 export const routes: Routes = [
   { path: 'event', component: EventListComponent, canActivate: mapToCanActivate([AuthGuardService])},
@@ -29,6 +31,7 @@ export const routes: Routes = [
   { path: 'account', component: UserComponent, canActivate: mapToCanActivate([AuthGuardService])},
   { path: 'account/edit', component: EditProfileComponent, canActivate: mapToCanActivate([AuthGuardService])},
   { path: 'tchat', component: TchatComponent, canActivate: mapToCanActivate([AuthGuardService])},
+  { path: 'tchat/:username', component: TchatComponent, canActivate: mapToCanActivate([AuthGuardService])},
   { path: 'register', component: ConnectRegisterComponent},
   { path: 'login', component: ConnectLoginComponent},
   { path: '', redirectTo: 'event', pathMatch: 'full'},
@@ -58,7 +61,10 @@ export const routes: Routes = [
     ReactiveFormsModule,
     SharedComponentsModule
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    // other providers
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -19,12 +19,14 @@ export class EditProfileComponent {
   onSubmit() {  
     console.log(this.profileForm);
   
-    this.http.put<any>('http://localhost:3000/users/'+this.authService.loadUser()._id, this.profileForm)
-    .subscribe(response => {
-      this.authService.login(response);
-      this.router.navigate(['/'])
+    this.authService.loadUser().subscribe(user => {
+      this.http.put<any>('http://localhost:3000/users/' + user._id, this.profileForm)
+        .subscribe(response => {
+          this.authService.login(this.authService.getJWTToken(), this.authService.getRefreshToken());
+          this.router.navigate(['/'])
         }, error => {
-      console.error("Echec");
+          console.error("Echec");
+        });
     });
   }
 

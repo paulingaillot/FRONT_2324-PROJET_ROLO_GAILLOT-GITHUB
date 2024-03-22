@@ -3,6 +3,7 @@ import { throwError, Observable, catchError, tap } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Event } from '../models/Event';
 import { User } from '../models/User';
+import { AuthService } from '../auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,11 +11,12 @@ import { User } from '../models/User';
 export class EventService {
 
   
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private authService: AuthService) {
   }
 
   getEvents(): Observable<Event[]> {
-    return this.http.get<Event[]>('http://localhost:3000/events').pipe(
+    const headers = { 'Authorization': 'Bearer ' + this.authService.getJWTToken() };
+    return this.http.get<Event[]>('http://localhost:3000/events', { headers }).pipe(
     tap(data => console.log('All: ', JSON.stringify(data))),
     catchError(this.handleError)
     );

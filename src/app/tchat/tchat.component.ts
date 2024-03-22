@@ -4,6 +4,7 @@ import { OnInit } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { throwError, Observable, catchError, tap, map } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { ActivatedRoute } from '@angular/router';
 
 interface userData {
   username: string;
@@ -20,32 +21,42 @@ export class TchatComponent implements OnInit{
   users: string[] = []; // Add this line
   roomName: String;
   userImage: any = {}; // Add this line
+  user: any;
 
-  constructor(private authService: AuthService, private http: HttpClient) {
-    this.socket = io('http://localhost:3000', {
-      query: {
-        username: this.authService.loadUser().username
-      }
+  constructor(private authService: AuthService, private http: HttpClient, private route : ActivatedRoute) {
+    this.authService.loadUser().subscribe(user => {
+      this.user = user;
+
+      this.socket = io('http://localhost:3000', {
+        query: {
+          username:  this.user.username
+        }
+      });
+
+      this.getMessages().subscribe(data => {
+        console.log(`message reçcu : ` + data.message);
+          // Mettez à jour le contenu du textarea avec le message reçu
+          var messagesTextarea = document.getElementById("messages");
+          if (messagesTextarea) {
+          messagesTextarea.innerHTML += "<b>" + data.from + "</b> : " + data.message + '<br>';
+  
+          // Faites défiler le textarea vers le bas pour afficher les nouveaux messages
+          messagesTextarea.scrollTop = messagesTextarea.scrollHeight;
+          }
+      });
+
     });
+
   }
 
   ngOnInit(): void {
+    if(this.route.snapshot.paramMap.get('username') !== null) this.selectUser(this.route.snapshot.paramMap.get('username')!);
+
     this.getUsers().subscribe(data => {
       data.forEach((user: userData) => {
         this.users.push(user.username);
         this.userImage[user.username] = user.picture;
       });
-    });
-    this.getMessages().subscribe(data => {
-      console.log(`message reçcu : ` + data.message);
-        // Mettez à jour le contenu du textarea avec le message reçu
-        var messagesTextarea = document.getElementById("messages");
-        if (messagesTextarea) {
-        messagesTextarea.innerHTML += "<b>" + data.from + "</b> : " + data.message + '<br>';
-
-        // Faites défiler le textarea vers le bas pour afficher les nouveaux messages
-        messagesTextarea.scrollTop = messagesTextarea.scrollHeight;
-        }
     });
   }
 
@@ -66,7 +77,7 @@ export class TchatComponent implements OnInit{
   }
   
   selectUser(username: string): void {
-    var roomName = this.getRoomName(this.authService.loadUser().username, username);
+    var roomName = this.getRoomName( this.user.username, username);
     console.log(roomName)
     this.socket.emit('leave room', this.roomName);
     this.socket.emit('join room', roomName);
@@ -118,9 +129,9 @@ export class TchatComponent implements OnInit{
 
   getOtherUsername(): string {
     try {
-    const usernames = this.roomName.split('-');
-    return usernames[0] === this.authService.loadUser().username ? usernames[1] : usernames[0];
-    }catch(e) {
+      const usernames = this.roomName.split('-');
+      return usernames[0] === this.user.username ? usernames[1] : usernames[0];
+    } catch(e) {
       return "";
     }
   }

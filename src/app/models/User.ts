@@ -4,7 +4,7 @@ class User {
     surname: string;
     username: string;
     mail: string;
-    picture: string | null;
+    picture: string;
     password: string;
     born: Date;
     is_admin: boolean;
@@ -16,7 +16,7 @@ class User {
       surname="",
       username="",
       mail="",
-      picture=null,
+      picture="",
       password="",
       born=new Date(),
       is_admin = false,

@@ -21,7 +21,9 @@ export class EventDetailsComponent implements OnInit {
     private authService: AuthService, 
     private http: HttpClient, 
     private router: Router,private route: ActivatedRoute,) {
-        this.user_actual = this.authService.loadUser()._id;
+      this.authService.loadUser().subscribe(user => {
+        this.user_actual = user._id;
+      });
      }
 
 
